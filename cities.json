@@ -1,0 +1,1076 @@
+{
+  "cities": [
+    {
+      "country": "United States",
+      "city": "New York",
+      "timezone": "America/New_York",
+      "mealCost": "$18",
+      "lat": 40.7128,
+      "lng": -74.0060
+    },
+    {
+      "country": "Canada",
+      "city": "Toronto",
+      "timezone": "America/Toronto",
+      "mealCost": "$15",
+      "lat": 43.6532,
+      "lng": -79.3832
+    },
+    {
+      "country": "Mexico",
+      "city": "Mexico City",
+      "timezone": "America/Mexico_City",
+      "mealCost": "$6",
+      "lat": 19.4326,
+      "lng": -99.1332
+    },
+    {
+      "country": "Guatemala",
+      "city": "Guatemala City",
+      "timezone": "America/Guatemala",
+      "mealCost": "$5",
+      "lat": 14.6349,
+      "lng": -90.5069
+    },
+    {
+      "country": "Cuba",
+      "city": "Havana",
+      "timezone": "America/Havana",
+      "mealCost": "$8",
+      "lat": 23.1136,
+      "lng": -82.3666
+    },
+    {
+      "country": "Jamaica",
+      "city": "Kingston",
+      "timezone": "America/Jamaica",
+      "mealCost": "$10",
+      "lat": 17.9712,
+      "lng": -76.7936
+    },
+    {
+      "country": "Haiti",
+      "city": "Port-au-Prince",
+      "timezone": "America/Port-au-Prince",
+      "mealCost": "$4",
+      "lat": 18.5944,
+      "lng": -72.3074
+    },
+    {
+      "country": "Dominican Republic",
+      "city": "Santo Domingo",
+      "timezone": "America/Santo_Domingo",
+      "mealCost": "$8",
+      "lat": 18.4861,
+      "lng": -69.9312
+    },
+    {
+      "country": "Costa Rica",
+      "city": "San José",
+      "timezone": "America/Costa_Rica",
+      "mealCost": "$8",
+      "lat": 9.7489,
+      "lng": -83.7534
+    },
+    {
+      "country": "Panama",
+      "city": "Panama City",
+      "timezone": "America/Panama",
+      "mealCost": "$12",
+      "lat": 8.9824,
+      "lng": -79.5199
+    },
+    {
+      "country": "Brazil",
+      "city": "São Paulo",
+      "timezone": "America/Sao_Paulo",
+      "mealCost": "$7",
+      "lat": -23.5505,
+      "lng": -46.6333
+    },
+    {
+      "country": "Argentina",
+      "city": "Buenos Aires",
+      "timezone": "America/Argentina/Buenos_Aires",
+      "mealCost": "$12",
+      "lat": -34.6118,
+      "lng": -58.3960
+    },
+    {
+      "country": "Chile",
+      "city": "Santiago",
+      "timezone": "America/Santiago",
+      "mealCost": "$10",
+      "lat": -33.4489,
+      "lng": -70.6693
+    },
+    {
+      "country": "Colombia",
+      "city": "Bogotá",
+      "timezone": "America/Bogota",
+      "mealCost": "$5",
+      "lat": 4.7110,
+      "lng": -74.0721
+    },
+    {
+      "country": "Peru",
+      "city": "Lima",
+      "timezone": "America/Lima",
+      "mealCost": "$6",
+      "lat": -12.0464,
+      "lng": -77.0428
+    },
+    {
+      "country": "Venezuela",
+      "city": "Caracas",
+      "timezone": "America/Caracas",
+      "mealCost": "$3",
+      "lat": 10.4806,
+      "lng": -66.9036
+    },
+    {
+      "country": "Ecuador",
+      "city": "Quito",
+      "timezone": "America/Guayaquil",
+      "mealCost": "$5",
+      "lat": -0.1807,
+      "lng": -78.4678
+    },
+    {
+      "country": "Bolivia",
+      "city": "La Paz",
+      "timezone": "America/La_Paz",
+      "mealCost": "$4",
+      "lat": -16.5000,
+      "lng": -68.1500
+    },
+    {
+      "country": "Paraguay",
+      "city": "Asunción",
+      "timezone": "America/Asuncion",
+      "mealCost": "$5",
+      "lat": -25.2637,
+      "lng": -57.5759
+    },
+    {
+      "country": "Uruguay",
+      "city": "Montevideo",
+      "timezone": "America/Montevideo",
+      "mealCost": "$12",
+      "lat": -34.9011,
+      "lng": -56.1645
+    },
+    {
+      "country": "United Kingdom",
+      "city": "London",
+      "timezone": "Europe/London",
+      "mealCost": "$18",
+      "lat": 51.5074,
+      "lng": -0.1278
+    },
+    {
+      "country": "Germany",
+      "city": "Berlin",
+      "timezone": "Europe/Berlin",
+      "mealCost": "$12",
+      "lat": 52.5200,
+      "lng": 13.4050
+    },
+    {
+      "country": "France",
+      "city": "Paris",
+      "timezone": "Europe/Paris",
+      "mealCost": "$16",
+      "lat": 48.8566,
+      "lng": 2.3522
+    },
+    {
+      "country": "Netherlands",
+      "city": "Amsterdam",
+      "timezone": "Europe/Amsterdam",
+      "mealCost": "$18",
+      "lat": 52.3676,
+      "lng": 4.9041
+    },
+    {
+      "country": "Spain",
+      "city": "Madrid",
+      "timezone": "Europe/Madrid",
+      "mealCost": "$12",
+      "lat": 40.4168,
+      "lng": -3.7038
+    },
+    {
+      "country": "Italy",
+      "city": "Rome",
+      "timezone": "Europe/Rome",
+      "mealCost": "$14",
+      "lat": 41.9028,
+      "lng": 12.4964
+    },
+    {
+      "country": "Switzerland",
+      "city": "Zurich",
+      "timezone": "Europe/Zurich",
+      "mealCost": "$25",
+      "lat": 47.3769,
+      "lng": 8.5417
+    },
+    {
+      "country": "Austria",
+      "city": "Vienna",
+      "timezone": "Europe/Vienna",
+      "mealCost": "$12",
+      "lat": 48.2082,
+      "lng": 16.3738
+    },
+    {
+      "country": "Poland",
+      "city": "Warsaw",
+      "timezone": "Europe/Warsaw",
+      "mealCost": "$8",
+      "lat": 52.2297,
+      "lng": 21.0122
+    },
+    {
+      "country": "Sweden",
+      "city": "Stockholm",
+      "timezone": "Europe/Stockholm",
+      "mealCost": "$15",
+      "lat": 59.3293,
+      "lng": 18.0686
+    },
+    {
+      "country": "Norway",
+      "city": "Oslo",
+      "timezone": "Europe/Oslo",
+      "mealCost": "$20",
+      "lat": 59.9139,
+      "lng": 10.7522
+    },
+    {
+      "country": "Denmark",
+      "city": "Copenhagen",
+      "timezone": "Europe/Copenhagen",
+      "mealCost": "$17",
+      "lat": 55.6761,
+      "lng": 12.5683
+    },
+    {
+      "country": "Finland",
+      "city": "Helsinki",
+      "timezone": "Europe/Helsinki",
+      "mealCost": "$14",
+      "lat": 60.1699,
+      "lng": 24.9384
+    },
+    {
+      "country": "Ireland",
+      "city": "Dublin",
+      "timezone": "Europe/Dublin",
+      "mealCost": "$16",
+      "lat": 53.3498,
+      "lng": -6.2603
+    },
+    {
+      "country": "Belgium",
+      "city": "Brussels",
+      "timezone": "Europe/Brussels",
+      "mealCost": "$15",
+      "lat": 50.8503,
+      "lng": 4.3517
+    },
+    {
+      "country": "Portugal",
+      "city": "Lisbon",
+      "timezone": "Europe/Lisbon",
+      "mealCost": "$11",
+      "lat": 38.7223,
+      "lng": -9.1393
+    },
+    {
+      "country": "Czech Republic",
+      "city": "Prague",
+      "timezone": "Europe/Prague",
+      "mealCost": "$9",
+      "lat": 50.0755,
+      "lng": 14.4378
+    },
+    {
+      "country": "Hungary",
+      "city": "Budapest",
+      "timezone": "Europe/Budapest",
+      "mealCost": "$8",
+      "lat": 47.4979,
+      "lng": 19.0402
+    },
+    {
+      "country": "Greece",
+      "city": "Athens",
+      "timezone": "Europe/Athens",
+      "mealCost": "$12",
+      "lat": 37.9838,
+      "lng": 23.7275
+    },
+    {
+      "country": "Turkey",
+      "city": "Istanbul",
+      "timezone": "Europe/Istanbul",
+      "mealCost": "$6",
+      "lat": 41.0082,
+      "lng": 28.9784
+    },
+    {
+      "country": "Romania",
+      "city": "Bucharest",
+      "timezone": "Europe/Bucharest",
+      "mealCost": "$7",
+      "lat": 44.4268,
+      "lng": 26.1025
+    },
+    {
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "timezone": "Europe/Sofia",
+      "mealCost": "$6",
+      "lat": 42.6977,
+      "lng": 23.3219
+    },
+    {
+      "country": "Croatia",
+      "city": "Zagreb",
+      "timezone": "Europe/Zagreb",
+      "mealCost": "$9",
+      "lat": 45.8150,
+      "lng": 15.9819
+    },
+    {
+      "country": "Serbia",
+      "city": "Belgrade",
+      "timezone": "Europe/Belgrade",
+      "mealCost": "$6",
+      "lat": 44.7866,
+      "lng": 20.4489
+    },
+    {
+      "country": "Slovakia",
+      "city": "Bratislava",
+      "timezone": "Europe/Bratislava",
+      "mealCost": "$8",
+      "lat": 48.1486,
+      "lng": 17.1077
+    },
+    {
+      "country": "Slovenia",
+      "city": "Ljubljana",
+      "timezone": "Europe/Ljubljana",
+      "mealCost": "$10",
+      "lat": 46.0569,
+      "lng": 14.5058
+    },
+    {
+      "country": "Estonia",
+      "city": "Tallinn",
+      "timezone": "Europe/Tallinn",
+      "mealCost": "$10",
+      "lat": 59.4370,
+      "lng": 24.7536
+    },
+    {
+      "country": "Latvia",
+      "city": "Riga",
+      "timezone": "Europe/Riga",
+      "mealCost": "$9",
+      "lat": 56.9496,
+      "lng": 24.1052
+    },
+    {
+      "country": "Lithuania",
+      "city": "Vilnius",
+      "timezone": "Europe/Vilnius",
+      "mealCost": "$8",
+      "lat": 54.6872,
+      "lng": 25.2797
+    },
+    {
+      "country": "Iceland",
+      "city": "Reykjavik",
+      "timezone": "Atlantic/Reykjavik",
+      "mealCost": "$22",
+      "lat": 64.1466,
+      "lng": -21.9426
+    },
+    {
+      "country": "Russia",
+      "city": "Moscow",
+      "timezone": "Europe/Moscow",
+      "mealCost": "$8",
+      "lat": 55.7558,
+      "lng": 37.6176
+    },
+    {
+      "country": "Ukraine",
+      "city": "Kyiv",
+      "timezone": "Europe/Kiev",
+      "mealCost": "$5",
+      "lat": 50.4501,
+      "lng": 30.5234
+    },
+    {
+      "country": "Belarus",
+      "city": "Minsk",
+      "timezone": "Europe/Minsk",
+      "mealCost": "$6",
+      "lat": 53.9045,
+      "lng": 27.5615
+    },
+    {
+      "country": "Japan",
+      "city": "Tokyo",
+      "timezone": "Asia/Tokyo",
+      "mealCost": "$8",
+      "lat": 35.6762,
+      "lng": 139.6503
+    },
+    {
+      "country": "South Korea",
+      "city": "Seoul",
+      "timezone": "Asia/Seoul",
+      "mealCost": "$8",
+      "lat": 37.5665,
+      "lng": 126.9780
+    },
+    {
+      "country": "China",
+      "city": "Shanghai",
+      "timezone": "Asia/Shanghai",
+      "mealCost": "$5",
+      "lat": 31.2304,
+      "lng": 121.4737
+    },
+    {
+      "country": "Hong Kong",
+      "city": "Hong Kong",
+      "timezone": "Asia/Hong_Kong",
+      "mealCost": "$12",
+      "lat": 22.3193,
+      "lng": 114.1694
+    },
+    {
+      "country": "Taiwan",
+      "city": "Taipei",
+      "timezone": "Asia/Taipei",
+      "mealCost": "$6",
+      "lat": 25.0330,
+      "lng": 121.5654
+    },
+    {
+      "country": "Singapore",
+      "city": "Singapore",
+      "timezone": "Asia/Singapore",
+      "mealCost": "$10",
+      "lat": 1.3521,
+      "lng": 103.8198
+    },
+    {
+      "country": "Malaysia",
+      "city": "Kuala Lumpur",
+      "timezone": "Asia/Kuala_Lumpur",
+      "mealCost": "$4",
+      "lat": 3.1390,
+      "lng": 101.6869
+    },
+    {
+      "country": "Thailand",
+      "city": "Bangkok",
+      "timezone": "Asia/Bangkok",
+      "mealCost": "$3",
+      "lat": 13.7563,
+      "lng": 100.5018
+    },
+    {
+      "country": "Vietnam",
+      "city": "Ho Chi Minh City",
+      "timezone": "Asia/Ho_Chi_Minh",
+      "mealCost": "$3",
+      "lat": 10.8231,
+      "lng": 106.6297
+    },
+    {
+      "country": "Philippines",
+      "city": "Manila",
+      "timezone": "Asia/Manila",
+      "mealCost": "$4",
+      "lat": 14.5995,
+      "lng": 120.9842
+    },
+    {
+      "country": "Indonesia",
+      "city": "Jakarta",
+      "timezone": "Asia/Jakarta",
+      "mealCost": "$3",
+      "lat": -6.2088,
+      "lng": 106.8456
+    },
+    {
+      "country": "India",
+      "city": "Mumbai",
+      "timezone": "Asia/Kolkata",
+      "mealCost": "$4",
+      "lat": 19.0760,
+      "lng": 72.8777
+    },
+    {
+      "country": "Pakistan",
+      "city": "Karachi",
+      "timezone": "Asia/Karachi",
+      "mealCost": "$2",
+      "lat": 24.8607,
+      "lng": 67.0011
+    },
+    {
+      "country": "Bangladesh",
+      "city": "Dhaka",
+      "timezone": "Asia/Dhaka",
+      "mealCost": "$2",
+      "lat": 23.8103,
+      "lng": 90.4125
+    },
+    {
+      "country": "Sri Lanka",
+      "city": "Colombo",
+      "timezone": "Asia/Colombo",
+      "mealCost": "$3",
+      "lat": 6.9271,
+      "lng": 79.8612
+    },
+    {
+      "country": "Myanmar",
+      "city": "Yangon",
+      "timezone": "Asia/Yangon",
+      "mealCost": "$3",
+      "lat": 16.8661,
+      "lng": 96.1951
+    },
+    {
+      "country": "Cambodia",
+      "city": "Phnom Penh",
+      "timezone": "Asia/Phnom_Penh",
+      "mealCost": "$3",
+      "lat": 11.5564,
+      "lng": 104.9282
+    },
+    {
+      "country": "Laos",
+      "city": "Vientiane",
+      "timezone": "Asia/Vientiane",
+      "mealCost": "$3",
+      "lat": 17.9757,
+      "lng": 102.6331
+    },
+    {
+      "country": "Brunei",
+      "city": "Bandar Seri Begawan",
+      "timezone": "Asia/Brunei",
+      "mealCost": "$8",
+      "lat": 4.9031,
+      "lng": 114.9398
+    },
+    {
+      "country": "Mongolia",
+      "city": "Ulaanbaatar",
+      "timezone": "Asia/Ulaanbaatar",
+      "mealCost": "$5",
+      "lat": 47.8864,
+      "lng": 106.9057
+    },
+    {
+      "country": "North Korea",
+      "city": "Pyongyang",
+      "timezone": "Asia/Pyongyang",
+      "mealCost": "$3",
+      "lat": 39.0392,
+      "lng": 125.7625
+    },
+    {
+      "country": "Nepal",
+      "city": "Kathmandu",
+      "timezone": "Asia/Kathmandu",
+      "mealCost": "$3",
+      "lat": 27.7172,
+      "lng": 85.3240
+    },
+    {
+      "country": "Bhutan",
+      "city": "Thimphu",
+      "timezone": "Asia/Thimphu",
+      "mealCost": "$5",
+      "lat": 27.4728,
+      "lng": 89.6393
+    },
+    {
+      "country": "Maldives",
+      "city": "Malé",
+      "timezone": "Indian/Maldives",
+      "mealCost": "$15",
+      "lat": 4.1755,
+      "lng": 73.5093
+    },
+    {
+      "country": "Afghanistan",
+      "city": "Kabul",
+      "timezone": "Asia/Kabul",
+      "mealCost": "$3",
+      "lat": 34.5553,
+      "lng": 69.2075
+    },
+    {
+      "country": "Iran",
+      "city": "Tehran",
+      "timezone": "Asia/Tehran",
+      "mealCost": "$4",
+      "lat": 35.6892,
+      "lng": 51.3890
+    },
+    {
+      "country": "Iraq",
+      "city": "Baghdad",
+      "timezone": "Asia/Baghdad",
+      "mealCost": "$5",
+      "lat": 33.3152,
+      "lng": 44.3661
+    },
+    {
+      "country": "Syria",
+      "city": "Damascus",
+      "timezone": "Asia/Damascus",
+      "mealCost": "$4",
+      "lat": 33.5138,
+      "lng": 36.2765
+    },
+    {
+      "country": "UAE",
+      "city": "Dubai",
+      "timezone": "Asia/Dubai",
+      "mealCost": "$10",
+      "lat": 25.2048,
+      "lng": 55.2708
+    },
+    {
+      "country": "Saudi Arabia",
+      "city": "Riyadh",
+      "timezone": "Asia/Riyadh",
+      "mealCost": "$8",
+      "lat": 24.7136,
+      "lng": 46.6753
+    },
+    {
+      "country": "Qatar",
+      "city": "Doha",
+      "timezone": "Asia/Qatar",
+      "mealCost": "$12",
+      "lat": 25.2854,
+      "lng": 51.5310
+    },
+    {
+      "country": "Kuwait",
+      "city": "Kuwait City",
+      "timezone": "Asia/Kuwait",
+      "mealCost": "$10",
+      "lat": 29.3759,
+      "lng": 47.9774
+    },
+    {
+      "country": "Bahrain",
+      "city": "Manama",
+      "timezone": "Asia/Bahrain",
+      "mealCost": "$12",
+      "lat": 26.0667,
+      "lng": 50.5577
+    },
+    {
+      "country": "Oman",
+      "city": "Muscat",
+      "timezone": "Asia/Muscat",
+      "mealCost": "$8",
+      "lat": 23.5859,
+      "lng": 58.4059
+    },
+    {
+      "country": "Yemen",
+      "city": "Sana'a",
+      "timezone": "Asia/Aden",
+      "mealCost": "$3",
+      "lat": 15.3694,
+      "lng": 44.1910
+    },
+    {
+      "country": "Israel",
+      "city": "Tel Aviv",
+      "timezone": "Asia/Jerusalem",
+      "mealCost": "$18",
+      "lat": 32.0853,
+      "lng": 34.7818
+    },
+    {
+      "country": "Palestine",
+      "city": "Gaza",
+      "timezone": "Asia/Gaza",
+      "mealCost": "$5",
+      "lat": 31.3547,
+      "lng": 34.3088
+    },
+    {
+      "country": "Jordan",
+      "city": "Amman",
+      "timezone": "Asia/Amman",
+      "mealCost": "$8",
+      "lat": 31.9539,
+      "lng": 35.9106
+    },
+    {
+      "country": "Lebanon",
+      "city": "Beirut",
+      "timezone": "Asia/Beirut",
+      "mealCost": "$12",
+      "lat": 33.8938,
+      "lng": 35.5018
+    },
+    {
+      "country": "Cyprus",
+      "city": "Nicosia",
+      "timezone": "Asia/Nicosia",
+      "mealCost": "$14",
+      "lat": 35.1856,
+      "lng": 33.3823
+    },
+    {
+      "country": "Georgia",
+      "city": "Tbilisi",
+      "timezone": "Asia/Tbilisi",
+      "mealCost": "$6",
+      "lat": 41.7151,
+      "lng": 44.8271
+    },
+    {
+      "country": "Armenia",
+      "city": "Yerevan",
+      "timezone": "Asia/Yerevan",
+      "mealCost": "$7",
+      "lat": 40.1792,
+      "lng": 44.4991
+    },
+    {
+      "country": "Azerbaijan",
+      "city": "Baku",
+      "timezone": "Asia/Baku",
+      "mealCost": "$6",
+      "lat": 40.4093,
+      "lng": 49.8671
+    },
+    {
+      "country": "Kazakhstan",
+      "city": "Almaty",
+      "timezone": "Asia/Almaty",
+      "mealCost": "$6",
+      "lat": 43.2220,
+      "lng": 76.8512
+    },
+    {
+      "country": "Uzbekistan",
+      "city": "Tashkent",
+      "timezone": "Asia/Tashkent",
+      "mealCost": "$4",
+      "lat": 41.2995,
+      "lng": 69.2401
+    },
+    {
+      "country": "Turkmenistan",
+      "city": "Ashgabat",
+      "timezone": "Asia/Ashgabat",
+      "mealCost": "$5",
+      "lat": 37.9601,
+      "lng": 58.3261
+    },
+    {
+      "country": "Kyrgyzstan",
+      "city": "Bishkek",
+      "timezone": "Asia/Bishkek",
+      "mealCost": "$4",
+      "lat": 42.8746,
+      "lng": 74.5698
+    },
+    {
+      "country": "Tajikistan",
+      "city": "Dushanbe",
+      "timezone": "Asia/Dushanbe",
+      "mealCost": "$4",
+      "lat": 38.5598,
+      "lng": 68.7870
+    },
+    {
+      "country": "South Africa",
+      "city": "Cape Town",
+      "timezone": "Africa/Johannesburg",
+      "mealCost": "$8",
+      "lat": -33.9249,
+      "lng": 18.4241
+    },
+    {
+      "country": "Egypt",
+      "city": "Cairo",
+      "timezone": "Africa/Cairo",
+      "mealCost": "$3",
+      "lat": 30.0444,
+      "lng": 31.2357
+    },
+    {
+      "country": "Morocco",
+      "city": "Casablanca",
+      "timezone": "Africa/Casablanca",
+      "mealCost": "$5",
+      "lat": 33.5731,
+      "lng": -7.5898
+    },
+    {
+      "country": "Nigeria",
+      "city": "Lagos",
+      "timezone": "Africa/Lagos",
+      "mealCost": "$4",
+      "lat": 6.5244,
+      "lng": 3.3792
+    },
+    {
+      "country": "Kenya",
+      "city": "Nairobi",
+      "timezone": "Africa/Nairobi",
+      "mealCost": "$5",
+      "lat": -1.2921,
+      "lng": 36.8219
+    },
+    {
+      "country": "Ghana",
+      "city": "Accra",
+      "timezone": "Africa/Accra",
+      "mealCost": "$4",
+      "lat": 5.6037,
+      "lng": -0.1870
+    },
+    {
+      "country": "Ethiopia",
+      "city": "Addis Ababa",
+      "timezone": "Africa/Addis_Ababa",
+      "mealCost": "$3",
+      "lat": 9.1450,
+      "lng": 40.4897
+    },
+    {
+      "country": "Tanzania",
+      "city": "Dar es Salaam",
+      "timezone": "Africa/Dar_es_Salaam",
+      "mealCost": "$4",
+      "lat": -6.7924,
+      "lng": 39.2083
+    },
+    {
+      "country": "Uganda",
+      "city": "Kampala",
+      "timezone": "Africa/Kampala",
+      "mealCost": "$3",
+      "lat": 0.3476,
+      "lng": 32.5825
+    },
+    {
+      "country": "Rwanda",
+      "city": "Kigali",
+      "timezone": "Africa/Kigali",
+      "mealCost": "$4",
+      "lat": -1.9441,
+      "lng": 30.0619
+    },
+    {
+      "country": "Senegal",
+      "city": "Dakar",
+      "timezone": "Africa/Dakar",
+      "mealCost": "$5",
+      "lat": 14.7167,
+      "lng": -17.4677
+    },
+    {
+      "country": "Ivory Coast",
+      "city": "Abidjan",
+      "timezone": "Africa/Abidjan",
+      "mealCost": "$4",
+      "lat": 5.3600,
+      "lng": -4.0083
+    },
+    {
+      "country": "Cameroon",
+      "city": "Douala",
+      "timezone": "Africa/Douala",
+      "mealCost": "$4",
+      "lat": 4.0483,
+      "lng": 9.7043
+    },
+    {
+      "country": "Angola",
+      "city": "Luanda",
+      "timezone": "Africa/Luanda",
+      "mealCost": "$8",
+      "lat": -8.8390,
+      "lng": 13.2894
+    },
+    {
+      "country": "Zimbabwe",
+      "city": "Harare",
+      "timezone": "Africa/Harare",
+      "mealCost": "$5",
+      "lat": -17.8292,
+      "lng": 31.0522
+    },
+    {
+      "country": "Zambia",
+      "city": "Lusaka",
+      "timezone": "Africa/Lusaka",
+      "mealCost": "$4",
+      "lat": -15.3875,
+      "lng": 28.3228
+    },
+    {
+      "country": "Botswana",
+      "city": "Gaborone",
+      "timezone": "Africa/Gaborone",
+      "mealCost": "$6",
+      "lat": -24.6282,
+      "lng": 25.9231
+    },
+    {
+      "country": "Namibia",
+      "city": "Windhoek",
+      "timezone": "Africa/Windhoek",
+      "mealCost": "$7",
+      "lat": -22.9576,
+      "lng": 18.4904
+    },
+    {
+      "country": "Madagascar",
+      "city": "Antananarivo",
+      "timezone": "Indian/Antananarivo",
+      "mealCost": "$4",
+      "lat": -18.8792,
+      "lng": 47.5079
+    },
+    {
+      "country": "Mauritius",
+      "city": "Port Louis",
+      "timezone": "Indian/Mauritius",
+      "mealCost": "$8",
+      "lat": -20.1619,
+      "lng": 57.5012
+    },
+    {
+      "country": "Seychelles",
+      "city": "Victoria",
+      "timezone": "Indian/Mahe",
+      "mealCost": "$15",
+      "lat": -4.6796,
+      "lng": 55.4920
+    },
+    {
+      "country": "Algeria",
+      "city": "Algiers",
+      "timezone": "Africa/Algiers",
+      "mealCost": "$4",
+      "lat": 36.7538,
+      "lng": 3.0588
+    },
+    {
+      "country": "Tunisia",
+      "city": "Tunis",
+      "timezone": "Africa/Tunis",
+      "mealCost": "$5",
+      "lat": 36.8065,
+      "lng": 10.1815
+    },
+    {
+      "country": "Libya",
+      "city": "Tripoli",
+      "timezone": "Africa/Tripoli",
+      "mealCost": "$5",
+      "lat": 32.8872,
+      "lng": 13.1913
+    },
+    {
+      "country": "Sudan",
+      "city": "Khartoum",
+      "timezone": "Africa/Khartoum",
+      "mealCost": "$3",
+      "lat": 15.5007,
+      "lng": 32.5599
+    },
+    {
+      "country": "Australia",
+      "city": "Sydney",
+      "timezone": "Australia/Sydney",
+      "mealCost": "$18",
+      "lat": -33.8688,
+      "lng": 151.2093
+    },
+    {
+      "country": "New Zealand",
+      "city": "Auckland",
+      "timezone": "Pacific/Auckland",
+      "mealCost": "$15",
+      "lat": -36.8485,
+      "lng": 174.7633
+    },
+    {
+      "country": "Papua New Guinea",
+      "city": "Port Moresby",
+      "timezone": "Pacific/Port_Moresby",
+      "mealCost": "$8",
+      "lat": -9.4438,
+      "lng": 147.1803
+    },
+    {
+      "country": "Fiji",
+      "city": "Suva",
+      "timezone": "Pacific/Fiji",
+      "mealCost": "$8",
+      "lat": -18.1248,
+      "lng": 178.4501
+    },
+    {
+      "country": "Samoa",
+      "city": "Apia",
+      "timezone": "Pacific/Apia",
+      "mealCost": "$12",
+      "lat": -13.8506,
+      "lng": -171.7513
+    },
+    {
+      "country": "Tonga",
+      "city": "Nuku'alofa",
+      "timezone": "Pacific/Tongatapu",
+      "mealCost": "$10",
+      "lat": -21.1789,
+      "lng": -175.1982
+    },
+    {
+      "country": "Vanuatu",
+      "city": "Port Vila",
+      "timezone": "Pacific/Efate",
+      "mealCost": "$12",
+      "lat": -17.7334,
+      "lng": 168.3273
+    },
+    {
+      "country": "Solomon Islands",
+      "city": "Honiara",
+      "timezone": "Pacific/Guadalcanal",
+      "mealCost": "$8",
+      "lat": -9.4280,
+      "lng": 159.9729
+    }
+  ]
+}
