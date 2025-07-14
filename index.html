@@ -5,8 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timezone Alignment Tool</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'primary': {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        'accent': {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            200: '#f5d0fe',
+                            300: '#f0abfc',
+                            400: '#e879f9',
+                            500: '#d946ef',
+                            600: '#c026d3',
+                            700: '#a21caf',
+                            800: '#86198f',
+                            900: '#701a75',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <!-- D3.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <!-- TopoJSON -->
@@ -14,136 +56,195 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
-<body class="min-h-screen bg-gray-50">
+<body class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 font-sans antialiased">
     <!-- Header -->
-    <header class="bg-white shadow-sm border-b">
-        <div class="max-w-7xl mx-auto px-4 py-6">
+    <header class="bg-white/80 backdrop-blur-xl shadow-lg border-b border-white/20 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-8">
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <i data-lucide="globe" class="w-8 h-8 text-blue-600"></i>
-                    <h1 class="text-3xl font-bold text-gray-900">Timezone Alignment Tool</h1>
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl shadow-lg">
+                        <i data-lucide="globe" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-4xl font-black text-gray-900 tracking-tight">Timezone Alignment</h1>
+                        <p class="text-lg text-gray-600 font-medium">Find your perfect remote work destinations</p>
+                    </div>
                 </div>
-                <button id="settings-btn" class="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
-                    <i data-lucide="settings" class="w-4 h-4"></i>
-                    <span>Settings</span>
+                <button id="settings-btn" class="flex items-center gap-3 px-6 py-3 bg-white hover:bg-gray-50 border border-gray-200 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md group">
+                    <i data-lucide="settings" class="w-5 h-5 text-gray-600 group-hover:rotate-90 transition-transform duration-300"></i>
+                    <span class="font-semibold text-gray-700">Settings</span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- Settings Modal -->
-    <div id="settings-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold text-gray-900">Working Hours Settings</h3>
-                <button id="close-settings" class="p-1 hover:bg-gray-100 rounded">
-                    <i data-lucide="x" class="w-5 h-5"></i>
+    <div id="settings-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-6 shadow-2xl border border-white/20">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold text-gray-900">Working Hours</h3>
+                <button id="close-settings" class="p-2 hover:bg-gray-100 rounded-xl transition-colors">
+                    <i data-lucide="x" class="w-6 h-6 text-gray-500"></i>
                 </button>
             </div>
 
-            <div class="space-y-4">
+            <div class="space-y-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-3">
                         Start Hour (Eastern Time)
                     </label>
-                    <select id="start-hour" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <select id="start-hour" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 font-mono">
                         <!-- Options will be populated by JavaScript -->
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-3">
                         End Hour (Eastern Time)
                     </label>
-                    <select id="end-hour" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <select id="end-hour" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 font-mono">
                         <!-- Options will be populated by JavaScript -->
                     </select>
                 </div>
             </div>
 
-            <div class="flex gap-3 mt-6">
-                <button id="cancel-settings" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+            <div class="flex gap-4 mt-8">
+                <button id="cancel-settings" class="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 font-semibold transition-colors">
                     Cancel
                 </button>
-                <button id="save-settings" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                    Save
+                <button id="save-settings" class="flex-1 px-6 py-3 bg-gradient-to-r from-primary-500 to-accent-500 text-white rounded-xl hover:from-primary-600 hover:to-accent-600 font-semibold transition-all shadow-lg">
+                    Save Changes
                 </button>
             </div>
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 py-8">
-        <!-- User Location and Target Schedule -->
-        <div class="mb-8 space-y-6">
-            <!-- Current Location -->
-            <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-                <h2 class="text-lg font-semibold text-gray-900 mb-2">Your Current Location</h2>
-                <div class="flex items-center gap-2">
-                    <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
-                    <span id="user-location" class="text-gray-700">Detecting...</span>
-                    <span class="text-gray-500">•</span>
-                    <span id="user-time" class="text-gray-700">--:--:--</span>
+    <div class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Status Cards -->
+        <div class="mb-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Current Location Card -->
+            <div class="bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="p-3 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl">
+                        <i data-lucide="map-pin" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900">Your Location</h2>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-3">
+                        <div class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
+                        <span id="user-location" class="text-gray-700 font-medium">Detecting...</span>
+                    </div>
+                    <div class="text-2xl font-mono font-bold text-gray-900" id="user-time">--:--:--</div>
                 </div>
             </div>
 
-            <!-- Target Schedule -->
-            <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-6 text-white shadow-lg">
-                <h2 class="text-xl font-bold mb-3">Target Working Hours</h2>
-                <div class="flex items-center gap-4 flex-wrap">
-                    <div class="bg-white/20 rounded-lg px-4 py-2">
-                        <div class="text-sm opacity-90">Hours (ET)</div>
-                        <div id="working-hours-display" class="text-lg font-bold">12:00 PM - 5:00 PM ET</div>
+            <!-- Target Schedule Card -->
+            <div class="lg:col-span-2 bg-gradient-to-br from-primary-500 via-primary-600 to-accent-600 rounded-3xl p-8 text-white shadow-xl hover:shadow-2xl transition-all duration-300">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="p-3 bg-white/20 rounded-2xl">
+                        <i data-lucide="clock" class="w-6 h-6 text-white"></i>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="clock" class="w-4 h-4"></i>
-                        <div>
-                            <div class="text-sm opacity-90">Current ET</div>
-                            <div id="eastern-time" class="font-semibold">--:--:--</div>
+                    <h2 class="text-2xl font-bold">Target Working Hours</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white/20 rounded-2xl p-6 backdrop-blur-sm">
+                        <div class="text-sm opacity-90 mb-2 font-medium">Hours (Eastern Time)</div>
+                        <div id="working-hours-display" class="text-2xl font-mono font-bold">12:00 PM - 5:00 PM ET</div>
+                    </div>
+                    <div class="bg-white/20 rounded-2xl p-6 backdrop-blur-sm">
+                        <div class="text-sm opacity-90 mb-2 font-medium">Current Eastern Time</div>
+                        <div id="eastern-time" class="text-2xl font-mono font-bold">--:--:--</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="mb-8 flex justify-center">
+            <div class="bg-white/70 backdrop-blur-xl rounded-2xl p-2 shadow-lg border border-white/20 flex gap-2">
+                <button id="filter-all" class="px-6 py-3 rounded-xl font-semibold transition-all duration-200 bg-gradient-to-r from-primary-500 to-accent-500 text-white shadow-md">
+                    All Cities
+                </button>
+                <button id="filter-good" class="px-6 py-3 rounded-xl font-semibold transition-all duration-200 text-gray-700 hover:bg-white/50">
+                    Perfect & Good Only
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <!-- World Map -->
+            <div class="xl:col-span-2 bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 p-8">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Global Timezone Alignment</h3>
+                    <p class="text-gray-600 font-medium">Cities from 120+ countries colored by working hour compatibility</p>
+                    <div class="flex items-center gap-6 mt-4 text-sm">
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-emerald-500 rounded-full"></div>
+                            <span class="font-semibold text-emerald-700">Perfect</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-amber-500 rounded-full"></div>
+                            <span class="font-semibold text-amber-700">Good</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-gray-400 rounded-full"></div>
+                            <span class="font-semibold text-gray-600">Fair</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-red-500 rounded-full"></div>
+                            <span class="font-semibold text-red-600">Poor</span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Search and Filters -->
-        <div class="mb-6 flex flex-col sm:flex-row gap-3">
-            <div class="relative flex-1">
-                <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
-                <input id="search-input" type="text" placeholder="Search countries or cities..." class="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-            </div>
-            <div class="flex gap-2">
-                <button id="filter-all" class="px-4 py-2 rounded-lg font-medium transition-colors bg-blue-600 text-white">
-                    All
-                </button>
-                <button id="filter-good" class="px-4 py-2 rounded-lg font-medium transition-colors bg-white text-gray-700 border border-gray-300 hover:bg-gray-50">
-                    Good+
-                </button>
-            </div>
-        </div>
+                <div class="relative bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl overflow-hidden border border-blue-200/50">
+                    <svg id="map-svg" width="100%" height="500" viewBox="0 0 1000 500" class="w-full h-auto"></svg>
 
-        <!-- World Map -->
-        <div id="world-map" class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-            <div class="mb-4">
-                <h3 class="text-lg font-bold text-gray-900 mb-1">Timezone Alignment Map</h3>
-                <p class="text-sm text-gray-600">Cities from 100+ countries colored by alignment with your working hours (any overlap with 4am-9pm local is good)</p>
-            </div>
+                    <!-- City Info Panel -->
+                    <div id="info-panel" class="absolute top-6 right-6 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 p-6 max-w-sm z-10 hidden">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                </div>
 
-            <div class="relative bg-blue-50 rounded-lg overflow-hidden mb-4">
-                <svg id="map-svg" width="100%" height="400" viewBox="0 0 1000 400" class="w-full h-auto"></svg>
-
-                <!-- City Info Panel -->
-                <div id="info-panel" class="absolute top-4 right-4 bg-white rounded-lg shadow-lg border border-gray-200 p-3 max-w-xs z-10 hidden">
-                    <!-- Content will be populated by JavaScript -->
+                <!-- Stats -->
+                <div class="mt-6 grid grid-cols-3 gap-4">
+                    <div class="text-center bg-white/50 rounded-xl p-4">
+                        <div class="text-3xl font-black text-gray-900" id="total-cities">0</div>
+                        <div class="text-sm font-semibold text-gray-600">Total Cities</div>
+                    </div>
+                    <div class="text-center bg-emerald-50 rounded-xl p-4">
+                        <div class="text-3xl font-black text-emerald-700" id="perfect-count">0</div>
+                        <div class="text-sm font-semibold text-emerald-600">Perfect Match</div>
+                    </div>
+                    <div class="text-center bg-amber-50 rounded-xl p-4">
+                        <div class="text-3xl font-black text-amber-700" id="good-count">0</div>
+                        <div class="text-sm font-semibold text-amber-600">Good Match</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Stats Only -->
-            <div class="text-center">
-                <h4 class="font-medium text-gray-900 mb-2">Stats</h4>
-                <div class="flex justify-center gap-6 text-sm text-gray-600">
-                    <div>Total: <span id="total-cities" class="font-medium text-gray-900">0</span></div>
-                    <div>Perfect: <span id="perfect-count" class="font-medium text-green-700">0</span></div>
-                    <div>Good: <span id="good-count" class="font-medium text-yellow-700">0</span></div>
+            <!-- Countries Table -->
+            <div class="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 p-8">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">City Details</h3>
+                    <p class="text-gray-600 font-medium">Working hours and alignment for each location</p>
+                </div>
+
+                <div class="max-h-[600px] overflow-y-auto custom-scrollbar">
+                    <table class="w-full" id="cities-table">
+                        <thead class="sticky top-0 bg-white/90 backdrop-blur-sm">
+                            <tr class="border-b border-gray-200">
+                                <th class="text-left py-3 px-2 font-bold text-gray-900 text-sm">City</th>
+                                <th class="text-left py-3 px-2 font-bold text-gray-900 text-sm">Status</th>
+                                <th class="text-left py-3 px-2 font-bold text-gray-900 text-sm">Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cities-table-body">
+                            <!-- Table content will be populated by JavaScript -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

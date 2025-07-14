@@ -18,7 +18,6 @@ async function loadCitiesData() {
 let userLocation = { city: 'Detecting...', timezone: 'UTC', country: '' };
 let workingHours = { start: 12, end: 17 }; // 12pm to 5pm ET
 let currentFilter = 'all';
-let searchTerm = '';
 let worldData = null;
 
 // Utility functions
@@ -125,15 +124,11 @@ function getWorkingHours(timezone, startHour, endHour) {
 
 function getFilteredCities() {
     return cities.filter(city => {
-        const matchesSearch = city.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                             city.city.toLowerCase().includes(searchTerm.toLowerCase());
-
         if (currentFilter === 'good') {
             const { alignment } = getWorkingHours(city.timezone, workingHours.start, workingHours.end);
-            return matchesSearch && (alignment.quality === 'Perfect' || alignment.quality === 'Good');
+            return (alignment.quality === 'Perfect' || alignment.quality === 'Good');
         }
-
-        return matchesSearch;
+        return true;
     });
 }
 
@@ -423,6 +418,49 @@ function populateHourSelects() {
     }
 }
 
+// Populate cities table
+function populateCitiesTable() {
+    const filteredCities = getFilteredCities();
+    const tableBody = document.getElementById('cities-table-body');
+
+    if (!tableBody) return;
+
+    tableBody.innerHTML = '';
+
+    filteredCities.forEach(city => {
+        const { startLocal, endLocal, alignment } = getWorkingHours(city.timezone, workingHours.start, workingHours.end);
+
+        const row = document.createElement('tr');
+        row.className = 'table-row border-b border-gray-100 hover:bg-gray-50/50 cursor-pointer';
+
+        row.innerHTML = `
+            <td class="py-4 px-2">
+                <div>
+                    <div class="font-semibold text-gray-900">${city.city}</div>
+                    <div class="text-sm text-gray-600">${city.country}</div>
+                </div>
+            </td>
+            <td class="py-4 px-2">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full" style="background-color: ${alignment.color}"></div>
+                    <span class="font-semibold text-sm ${alignment.textColor}">${alignment.quality}</span>
+                </div>
+            </td>
+            <td class="py-4 px-2">
+                <div class="font-mono text-sm font-medium text-gray-900">${startLocal} - ${endLocal}</div>
+                <div class="text-xs text-gray-600">${city.mealCost}</div>
+            </td>
+        `;
+
+        // Add click handler to show info panel
+        row.addEventListener('click', () => {
+            showInfoPanel(city);
+        });
+
+        tableBody.appendChild(row);
+    });
+}
+
 // Render map
 function renderMap() {
     if (!worldData) return;
@@ -500,6 +538,7 @@ function renderMap() {
     // City labels removed - showing only on hover
 
     updateStats();
+    populateCitiesTable();
 }
 
 // Show info panel
@@ -508,25 +547,33 @@ function showInfoPanel(city) {
     const { startLocal, endLocal, alignment, currentTime } = getWorkingHours(city.timezone, workingHours.start, workingHours.end);
 
     panel.innerHTML = `
-        <div class="font-bold text-gray-900 text-lg">${city.city}</div>
-        <div class="text-sm text-gray-600 mb-3">${city.country}</div>
-
-        <div class="space-y-3">
-            <div class="flex items-center gap-2 ${alignment.textColor}">
-                <div class="w-3 h-3 rounded-full" style="background-color: ${alignment.color}"></div>
-                <span class="font-semibold">${alignment.quality} Alignment</span>
+        <div class="space-y-4">
+            <div>
+                <div class="text-2xl font-bold text-gray-900">${city.city}</div>
+                <div class="text-lg text-gray-600 font-medium">${city.country}</div>
             </div>
 
-            <div class="bg-gray-50 rounded-lg p-3">
-                <div class="text-xs text-gray-600 mb-1">Working Hours</div>
-                <div class="font-medium text-gray-900">
+            <div class="flex items-center gap-3 ${alignment.textColor}">
+                <div class="w-4 h-4 rounded-full shadow-lg" style="background-color: ${alignment.color}"></div>
+                <span class="font-bold text-lg">${alignment.quality} Alignment</span>
+            </div>
+
+            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 border border-gray-200">
+                <div class="text-sm font-semibold text-gray-600 mb-2">Working Hours (Local)</div>
+                <div class="text-xl font-mono font-bold text-gray-900">
                     ${startLocal} - ${endLocal}
                 </div>
             </div>
 
-            <div class="text-sm text-gray-600">
-                <div>Current time: <span class="font-medium text-gray-900">${currentTime}</span></div>
-                <div>Meal cost: <span class="font-medium text-green-700">${city.mealCost}</span></div>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                    <div class="text-gray-600 font-medium">Current Time</div>
+                    <div class="font-mono font-bold text-gray-900">${currentTime}</div>
+                </div>
+                <div>
+                    <div class="text-gray-600 font-medium">Meal Cost</div>
+                    <div class="font-bold text-emerald-700 text-lg">${city.mealCost}</div>
+                </div>
             </div>
         </div>
     `;
@@ -590,31 +637,25 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('settings-modal').classList.add('hidden');
     });
 
-    // Search
-    document.getElementById('search-input').addEventListener('input', (e) => {
-        searchTerm = e.target.value;
-        renderMap();
-    });
-
     // Filters
     document.getElementById('filter-all').addEventListener('click', (e) => {
         currentFilter = 'all';
-        e.target.classList.add('bg-blue-600', 'text-white');
-        e.target.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+        e.target.classList.add('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white', 'shadow-md');
+        e.target.classList.remove('text-gray-700', 'hover:bg-white/50');
 
-        document.getElementById('filter-good').classList.remove('bg-blue-600', 'text-white');
-        document.getElementById('filter-good').classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+        document.getElementById('filter-good').classList.remove('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white', 'shadow-md');
+        document.getElementById('filter-good').classList.add('text-gray-700', 'hover:bg-white/50');
 
         renderMap();
     });
 
     document.getElementById('filter-good').addEventListener('click', (e) => {
         currentFilter = 'good';
-        e.target.classList.add('bg-blue-600', 'text-white');
-        e.target.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+        e.target.classList.add('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white', 'shadow-md');
+        e.target.classList.remove('text-gray-700', 'hover:bg-white/50');
 
-        document.getElementById('filter-all').classList.remove('bg-blue-600', 'text-white');
-        document.getElementById('filter-all').classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+        document.getElementById('filter-all').classList.remove('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white', 'shadow-md');
+        document.getElementById('filter-all').classList.add('text-gray-700', 'hover:bg-white/50');
 
         renderMap();
     });
