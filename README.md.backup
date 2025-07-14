@@ -1,5 +1,17 @@
-# 🌍 Timezone Alignment Tool
+# 🌍 Timezone### 📊 **How it works:**
+1. **Set your US working hours** (default: 12 PM - 5 PM ET)
+2. **View the full-width interactive map** where cities are color-coded by timezone alignment:
+   - 🟢 **Perfect** = 80%+ of your work hours fall within 4 AM - 9 PM local time
+   - 🟡 **Good** = 50%+ overlap with reasonable local hours
+   - 🔴 **Poor** = Less than 50% overlap with good local hours
+3. **Browse the detailed table** to see exact local working hours for each city
+4. **Check meal costs** to help with budget planning (sorted by affordability)
 
+### 💡 **Key Insight:**
+Working 12 PM - 5 PM ET means:
+- **Americas** (Mexico, Brazil, Argentina) = Perfect timing!
+- **Europe** (London, Berlin, Paris) = Good evening hours (5-10 PM local)
+- **Asia** (Tokyo, Bangkok, Mumbai) = Poor timing (late night/early morning local hours) 
 **Find the perfect countries for remote work based on timezone compatibility with US business hours.**
 
 ## What does this tool do?
@@ -14,18 +26,19 @@ This tool helps **remote workers, digital nomads, and freelancers** find countri
 
 ### 📊 **How it works:**
 1. **Set your US working hours** (default: 12 PM - 5 PM ET)
-2. **View the full-width interactive map** where cities are color-coded by timezone alignment:
-   - 🟢 **Perfect** = 80%+ of your work hours fall within 4 AM - 9 PM local time
+2. **View the global map** where cities are color-coded by timezone alignment:
+   - � **Perfect** = 80%+ of your work hours fall within 4 AM - 9 PM local time
    - 🟡 **Good** = 50%+ overlap with reasonable local hours
-   - 🔴 **Poor** = Less than 50% overlap with good local hours
+   - ⚪ **Fair** = Some overlap with local business hours
+   - 🔴 **Poor** = Most work happens during local night hours
 3. **Browse the detailed table** to see exact local working hours for each city
-4. **Check meal costs** to help with budget planning (sorted by affordability)
+4. **Check meal costs** to help with budget planning
 
 ### 💡 **Key Insight:**
 Working 12 PM - 5 PM ET means:
 - **Americas** (Mexico, Brazil, Argentina) = Perfect timing!
-- **Europe** (London, Berlin, Paris) = Good evening hours (5-10 PM local)
-- **Asia** (Tokyo, Bangkok, Mumbai) = Poor timing (late night/early morning local hours)
+- **Europe** (London, Berlin, Paris) = Good morning hours (5-10 PM local)
+- **Asia** (Tokyo, Bangkok, Mumbai) = Late night/early morning local hours
 
 ## 🚀 Features
 
@@ -67,7 +80,7 @@ To verify DST functionality, open browser console and run:
 verifyDSTFunctionality()
 ```
 
-## 🚀 Quick Start
+## � Quick Start
 
 ### Local Development
 ```bash

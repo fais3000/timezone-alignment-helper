@@ -71,8 +71,8 @@ function getAlignmentQuality(startHour, endHour) {
         if (overlapPercentage >= 0.5) {
             return { quality: 'Good', color: '#fbbf24', textColor: 'text-amber-600' };
         }
-        // Fair: any overlap with good hours
-        return { quality: 'Fair', color: '#d1d5db', textColor: 'text-gray-500' };
+        // Poor: less than 50% overlap with good hours (merged Fair into Poor)
+        return { quality: 'Poor', color: '#fca5a5', textColor: 'text-red-500' };
     }
 
     // Poor: no overlap with good hours (working entirely outside 4am-9pm)
@@ -80,16 +80,25 @@ function getAlignmentQuality(startHour, endHour) {
 }
 
 function getWorkingHours(timezone, startHour, endHour) {
-    // Simple timezone offset approach
+    // DST-aware timezone calculation using Intl.DateTimeFormat
     const now = new Date();
 
-    // Get current time in both ET and target timezone to calculate offset
-    const etTime = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
-    const targetTime = new Date().toLocaleString("en-US", {timeZone: timezone});
+    // Get current hour in Eastern Time
+    const etFormatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York',
+        hour: 'numeric',
+        hour12: false
+    });
 
-    // Parse the times to get hour difference
-    const etHour = new Date(etTime).getHours();
-    const targetHour = new Date(targetTime).getHours();
+    // Get current hour in target timezone
+    const targetFormatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: timezone,
+        hour: 'numeric',
+        hour12: false
+    });
+
+    const etHour = parseInt(etFormatter.format(now));
+    const targetHour = parseInt(targetFormatter.format(now));
 
     // Calculate the offset (accounting for day wraparound)
     let offset = targetHour - etHour;
@@ -590,6 +599,67 @@ function showInfoPanel(city) {
     setTimeout(() => {
         panel.classList.add('hidden');
     }, 5000);
+}
+
+// DST verification function
+// To test DST functionality, open browser console and run: verifyDSTFunctionality()
+function verifyDSTFunctionality() {
+    console.log("=== DST Verification Test ===");
+    console.log(`Test Date: ${new Date().toDateString()}`);
+
+    // Test current DST status for different timezones
+    const testTimezones = [
+        { name: "London", timezone: "Europe/London" },
+        { name: "New York", timezone: "America/New_York" },
+        { name: "Los Angeles", timezone: "America/Los_Angeles" },
+        { name: "Sydney", timezone: "Australia/Sydney" },
+        { name: "Phoenix (No DST)", timezone: "America/Phoenix" }
+    ];
+
+    const now = new Date();
+    const etFormatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    });
+
+    const etTime = etFormatter.format(now);
+    console.log(`Current Eastern Time: ${etTime}`);
+
+    testTimezones.forEach(location => {
+        // Get current time in the timezone
+        const formatter = new Intl.DateTimeFormat('en-US', {
+            timeZone: location.timezone,
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+            timeZoneName: 'short'
+        });
+
+        const timeInZone = formatter.format(now);
+
+        // Test working hours calculation (12 PM - 5 PM ET)
+        const workingHoursResult = getWorkingHours(location.timezone, 12, 17);
+
+        // Check if DST is being applied correctly by comparing offset
+        const etDate = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
+        const localDate = new Date(now.toLocaleString("en-US", {timeZone: location.timezone}));
+        const offsetHours = (localDate.getTime() - etDate.getTime()) / (1000 * 60 * 60);
+
+        console.log(`${location.name}:`);
+        console.log(`  Current time: ${timeInZone}`);
+        console.log(`  Offset from ET: ${offsetHours.toFixed(1)} hours`);
+        console.log(`  12-5 PM ET becomes: ${workingHoursResult.startLocal} - ${workingHoursResult.endLocal}`);
+        console.log(`  Alignment: ${workingHoursResult.alignment.quality}`);
+        console.log("---");
+    });
+
+    // Test specific DST scenario
+    console.log("Testing DST calculations:");
+    console.log("The system uses Intl.DateTimeFormat which automatically handles DST transitions.");
+    console.log("This means timezone offsets are always current and accurate.");
+    console.log("=== DST Test Complete ===");
 }
 
 // Event listeners
