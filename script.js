@@ -65,18 +65,18 @@ function getAlignmentQuality(startHour, endHour) {
 
         // Perfect: 80%+ overlap with good hours
         if (overlapPercentage >= 0.8) {
-            return { quality: 'Perfect', color: '#10b981', textColor: 'text-green-600' };
+            return { quality: 'Perfect', color: '#86efac', textColor: 'text-emerald-600' };
         }
         // Good: 50%+ overlap with good hours
         if (overlapPercentage >= 0.5) {
-            return { quality: 'Good', color: '#f59e0b', textColor: 'text-yellow-600' };
+            return { quality: 'Good', color: '#fbbf24', textColor: 'text-amber-600' };
         }
         // Fair: any overlap with good hours
-        return { quality: 'Fair', color: '#6b7280', textColor: 'text-gray-600' };
+        return { quality: 'Fair', color: '#d1d5db', textColor: 'text-gray-500' };
     }
 
     // Poor: no overlap with good hours (working entirely outside 4am-9pm)
-    return { quality: 'Poor', color: '#ef4444', textColor: 'text-red-600' };
+    return { quality: 'Poor', color: '#fca5a5', textColor: 'text-red-500' };
 }
 
 function getWorkingHours(timezone, startHour, endHour) {
@@ -427,7 +427,14 @@ function populateCitiesTable() {
 
     tableBody.innerHTML = '';
 
-    filteredCities.forEach(city => {
+    // Sort by meal cost (lowest first)
+    const sortedCities = filteredCities.sort((a, b) => {
+        const costA = parseFloat(a.mealCost.replace('$', ''));
+        const costB = parseFloat(b.mealCost.replace('$', ''));
+        return costA - costB;
+    });
+
+    sortedCities.forEach(city => {
         const { startLocal, endLocal, alignment } = getWorkingHours(city.timezone, workingHours.start, workingHours.end);
 
         const row = document.createElement('tr');
@@ -469,14 +476,14 @@ function renderMap() {
     svg.selectAll('*').remove();
 
     const width = 1000;
-    const height = 400;
+    const height = 600;
 
     // Set the SVG dimensions
     svg.attr('width', width).attr('height', height);
 
     // Create projection
     const projection = d3.geoNaturalEarth1()
-        .scale(120)
+        .scale(180)
         .translate([width / 2, height / 2]);
 
     const path = d3.geoPath().projection(projection);
@@ -537,7 +544,6 @@ function renderMap() {
 
     // City labels removed - showing only on hover
 
-    updateStats();
     populateCitiesTable();
 }
 
@@ -586,17 +592,6 @@ function showInfoPanel(city) {
     }, 5000);
 }
 
-// Update stats
-function updateStats() {
-    const filteredCities = getFilteredCities();
-    const perfect = filteredCities.filter(c => getWorkingHours(c.timezone, workingHours.start, workingHours.end).alignment.quality === 'Perfect').length;
-    const good = filteredCities.filter(c => getWorkingHours(c.timezone, workingHours.start, workingHours.end).alignment.quality === 'Good').length;
-
-    document.getElementById('total-cities').textContent = filteredCities.length;
-    document.getElementById('perfect-count').textContent = perfect;
-    document.getElementById('good-count').textContent = good;
-}
-
 // Event listeners
 document.addEventListener('DOMContentLoaded', async function() {
     // Load cities data first
@@ -640,10 +635,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Filters
     document.getElementById('filter-all').addEventListener('click', (e) => {
         currentFilter = 'all';
-        e.target.classList.add('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white', 'shadow-md');
+        e.target.classList.add('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white');
         e.target.classList.remove('text-gray-700', 'hover:bg-white/50');
 
-        document.getElementById('filter-good').classList.remove('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white', 'shadow-md');
+        document.getElementById('filter-good').classList.remove('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white');
         document.getElementById('filter-good').classList.add('text-gray-700', 'hover:bg-white/50');
 
         renderMap();
@@ -651,10 +646,10 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     document.getElementById('filter-good').addEventListener('click', (e) => {
         currentFilter = 'good';
-        e.target.classList.add('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white', 'shadow-md');
+        e.target.classList.add('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white');
         e.target.classList.remove('text-gray-700', 'hover:bg-white/50');
 
-        document.getElementById('filter-all').classList.remove('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white', 'shadow-md');
+        document.getElementById('filter-all').classList.remove('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white');
         document.getElementById('filter-all').classList.add('text-gray-700', 'hover:bg-white/50');
 
         renderMap();

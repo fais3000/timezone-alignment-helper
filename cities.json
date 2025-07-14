@@ -1,14 +1,6 @@
 {
   "cities": [
     {
-      "country": "United States",
-      "city": "New York",
-      "timezone": "America/New_York",
-      "mealCost": "$18",
-      "lat": 40.7128,
-      "lng": -74.0060
-    },
-    {
       "country": "Canada",
       "city": "Toronto",
       "timezone": "America/Toronto",
