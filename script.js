@@ -18,7 +18,7 @@ async function loadCitiesData() {
 // Removed userLocation (no longer displaying current location)
 let workingHours = { start: 12, end: 17 }; // 12pm to 5pm ET
 let currentFilter = 'all';
-let searchQuery = '';
+// Removed searchQuery (search functionality removed)
 let worldData = null;
 
 // Utility functions
@@ -134,7 +134,7 @@ function getWorkingHours(timezone, startHour, endHour) {
 
 function getFilteredCities() {
     return cities.filter(city => {
-        // First check alignment quality
+        // Check alignment quality
         if (currentFilter === 'good') {
             const { alignment } = getWorkingHours(city.timezone, workingHours.start, workingHours.end);
             if (!(alignment.quality === 'Perfect' || alignment.quality === 'Good')) {
@@ -142,18 +142,7 @@ function getFilteredCities() {
             }
         }
         
-        // Then apply search filter if search query exists
-        if (searchQuery.trim() !== '') {
-            const query = searchQuery.toLowerCase().trim();
-            const cityMatch = city.city.toLowerCase().includes(query);
-            const countryMatch = city.country.toLowerCase().includes(query);
-            // Only return true if there's a match
-            if (!(cityMatch || countryMatch)) {
-                return false;
-            }
-        }
-        
-        // If passed both filters (or no filters applied)
+        // If passed filter (or no filter applied)
         return true;
     });
 }
@@ -405,76 +394,7 @@ function populateHourSelects() {
     }
 }
 
-// Populate cities table
-function populateCitiesTable() {
-    const filteredCities = getFilteredCities();
-    const tableBody = document.getElementById('cities-table-body');
-
-    if (!tableBody) return;
-
-    tableBody.innerHTML = '';
-    
-    // Show "no results" message if no cities match search
-    if (filteredCities.length === 0) {
-        const noResultsRow = document.createElement('tr');
-        noResultsRow.className = 'border-b border-apple-gray-5';
-        noResultsRow.innerHTML = `
-            <td colspan="3" class="py-8 px-3 text-center">
-                <div class="flex flex-col items-center justify-center space-y-2">
-                    <i data-lucide="search-x" class="w-8 h-8 text-apple-gray-3 mb-2"></i>
-                    <div class="text-gray-500 font-medium">No matching cities found</div>
-                    <div class="text-sm text-apple-gray">Try a different search term</div>
-                </div>
-            </td>
-        `;
-        tableBody.appendChild(noResultsRow);
-        // Refresh Lucide icons - ensure it's available
-        if (typeof lucide !== 'undefined' && lucide.createIcons) {
-            lucide.createIcons();
-        }
-        return;
-    }
-
-    // Sort by meal cost (lowest first)
-    const sortedCities = filteredCities.sort((a, b) => {
-        const costA = parseFloat(a.mealCost.replace('$', ''));
-        const costB = parseFloat(b.mealCost.replace('$', ''));
-        return costA - costB;
-    });
-
-    sortedCities.forEach(city => {
-        const { startLocal, endLocal, alignment } = getWorkingHours(city.timezone, workingHours.start, workingHours.end);
-
-        const row = document.createElement('tr');
-        row.className = 'table-row border-b border-apple-gray-5 hover:bg-apple-blue/5 cursor-pointer transition-all duration-150';
-
-        row.innerHTML = `
-            <td class="py-4 px-3">
-                <div>
-                    <div class="font-medium text-gray-900">${city.city}</div>
-                    <div class="text-sm text-apple-gray">${city.country}</div>
-                </div>
-            </td>
-            <td class="py-4 px-3">
-                <div class="flex items-center gap-2">
-                    <div class="w-2 h-2 rounded-full" style="background-color: ${alignment.color}"></div>
-                    <span class="font-medium text-sm ${alignment.textColor}">${alignment.quality}</span>
-                </div>
-            </td>
-            <td class="py-4 px-3">
-                <div class="font-mono text-sm font-medium text-gray-900">${startLocal} - ${endLocal}</div>
-                <div class="text-xs text-apple-gray">${city.mealCost}</div>
-            </td>
-        `;
-
-        // Add click handler to show info panel
-        row.addEventListener('click', () => {
-            showInfoPanel(city);
-        });
-
-        tableBody.appendChild(row);
-    });
-}
+// populateCitiesTable function removed - table functionality removed
 
 // Render map
 function renderMap() {
@@ -572,8 +492,6 @@ function renderMap() {
         });
 
     // City labels removed - showing only on hover
-
-    populateCitiesTable();
 }
 
 // Show info panel
@@ -743,74 +661,5 @@ document.addEventListener('DOMContentLoaded', async function() {
         renderMap();
     });
     
-    // Search functionality
-    const searchInput = document.getElementById('city-search');
-    const clearButton = document.getElementById('clear-search');
-    const searchStatus = document.getElementById('search-status');
-    const searchCount = document.getElementById('search-count');
-    
-    // Make sure all elements are available
-    if (searchInput && clearButton && searchStatus && searchCount) {
-        // Initial delay variable for debouncing
-        let searchTimeout = null;
-        
-        // Function to update search results
-        const updateSearch = () => {
-            searchQuery = searchInput.value;
-            
-            // Toggle clear button visibility
-            if (searchQuery.trim() !== '') {
-                clearButton.classList.remove('hidden');
-                searchStatus.classList.remove('hidden');
-            } else {
-                clearButton.classList.add('hidden');
-                searchStatus.classList.add('hidden');
-            }
-            
-            renderMap();
-            populateCitiesTable();
-            
-            // Update count of results
-            const resultCount = getFilteredCities().length;
-            if (searchCount) {
-                searchCount.textContent = resultCount;
-            }
-        };
-        
-        // Add input event listener with debouncing
-        searchInput.addEventListener('input', function(e) {
-            // Clear any existing timeout
-            if (searchTimeout) {
-                clearTimeout(searchTimeout);
-            }
-            
-            // Set a new timeout to update search after user stops typing
-            searchTimeout = setTimeout(updateSearch, 300); // 300ms delay
-        });
-        
-        // Add clear button functionality
-        if (clearButton) {
-            clearButton.addEventListener('click', function() {
-                searchInput.value = '';
-                searchQuery = '';
-                clearButton.classList.add('hidden');
-                searchStatus.classList.add('hidden');
-                renderMap();
-                populateCitiesTable();
-                searchInput.focus();
-            });
-        }
-        
-        // Add clear functionality with 'Escape' key
-        searchInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                searchInput.value = '';
-                searchQuery = '';
-                clearButton.classList.add('hidden');
-                searchStatus.classList.add('hidden');
-                renderMap();
-                populateCitiesTable();
-            }
-        });
-    }
+    // Search functionality removed - table section removed
 });
