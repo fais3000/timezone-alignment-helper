@@ -134,7 +134,7 @@ function getWorkingHours(timezone, startHour, endHour) {
 
 function getFilteredCities() {
     return cities.filter(city => {
-        // Filter by alignment quality if needed
+        // First check alignment quality
         if (currentFilter === 'good') {
             const { alignment } = getWorkingHours(city.timezone, workingHours.start, workingHours.end);
             if (!(alignment.quality === 'Perfect' || alignment.quality === 'Good')) {
@@ -142,14 +142,18 @@ function getFilteredCities() {
             }
         }
         
-        // Apply search filter if search query exists
+        // Then apply search filter if search query exists
         if (searchQuery.trim() !== '') {
             const query = searchQuery.toLowerCase().trim();
             const cityMatch = city.city.toLowerCase().includes(query);
             const countryMatch = city.country.toLowerCase().includes(query);
-            return cityMatch || countryMatch;
+            // Only return true if there's a match
+            if (!(cityMatch || countryMatch)) {
+                return false;
+            }
         }
         
+        // If passed both filters (or no filters applied)
         return true;
     });
 }
@@ -424,7 +428,10 @@ function populateCitiesTable() {
             </td>
         `;
         tableBody.appendChild(noResultsRow);
-        lucide.createIcons(); // Refresh Lucide icons
+        // Refresh Lucide icons - ensure it's available
+        if (typeof lucide !== 'undefined' && lucide.createIcons) {
+            lucide.createIcons();
+        }
         return;
     }
 
@@ -742,7 +749,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     const searchStatus = document.getElementById('search-status');
     const searchCount = document.getElementById('search-count');
     
-    if (searchInput) {
+    // Make sure all elements are available
+    if (searchInput && clearButton && searchStatus && searchCount) {
         // Initial delay variable for debouncing
         let searchTimeout = null;
         
