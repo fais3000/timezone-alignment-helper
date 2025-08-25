@@ -65,18 +65,18 @@ function getAlignmentQuality(startHour, endHour) {
 
         // Perfect: 80%+ overlap with good hours
         if (overlapPercentage >= 0.8) {
-            return { quality: 'Perfect', color: '#86efac', textColor: 'text-emerald-600' };
+            return { quality: 'Perfect', color: '#34C759', textColor: 'text-green-600' };
         }
         // Good: 50%+ overlap with good hours
         if (overlapPercentage >= 0.5) {
-            return { quality: 'Good', color: '#fbbf24', textColor: 'text-amber-600' };
+            return { quality: 'Good', color: '#FF9500', textColor: 'text-orange-600' };
         }
         // Poor: less than 50% overlap with good hours (merged Fair into Poor)
-        return { quality: 'Poor', color: '#fca5a5', textColor: 'text-red-500' };
+        return { quality: 'Poor', color: '#FF3B30', textColor: 'text-red-500' };
     }
 
     // Poor: no overlap with good hours (working entirely outside 4am-9pm)
-    return { quality: 'Poor', color: '#fca5a5', textColor: 'text-red-500' };
+    return { quality: 'Poor', color: '#FF3B30', textColor: 'text-red-500' };
 }
 
 function getWorkingHours(timezone, startHour, endHour) {
@@ -447,24 +447,24 @@ function populateCitiesTable() {
         const { startLocal, endLocal, alignment } = getWorkingHours(city.timezone, workingHours.start, workingHours.end);
 
         const row = document.createElement('tr');
-        row.className = 'table-row border-b border-gray-100 hover:bg-gray-50/50 cursor-pointer';
+        row.className = 'table-row border-b border-apple-gray-5 hover:bg-apple-blue/5 cursor-pointer transition-all duration-150';
 
         row.innerHTML = `
-            <td class="py-4 px-2">
+            <td class="py-4 px-3">
                 <div>
-                    <div class="font-semibold text-gray-900">${city.city}</div>
-                    <div class="text-sm text-gray-600">${city.country}</div>
+                    <div class="font-medium text-gray-900">${city.city}</div>
+                    <div class="text-sm text-apple-gray">${city.country}</div>
                 </div>
             </td>
-            <td class="py-4 px-2">
+            <td class="py-4 px-3">
                 <div class="flex items-center gap-2">
-                    <div class="w-3 h-3 rounded-full" style="background-color: ${alignment.color}"></div>
-                    <span class="font-semibold text-sm ${alignment.textColor}">${alignment.quality}</span>
+                    <div class="w-2 h-2 rounded-full" style="background-color: ${alignment.color}"></div>
+                    <span class="font-medium text-sm ${alignment.textColor}">${alignment.quality}</span>
                 </div>
             </td>
-            <td class="py-4 px-2">
+            <td class="py-4 px-3">
                 <div class="font-mono text-sm font-medium text-gray-900">${startLocal} - ${endLocal}</div>
-                <div class="text-xs text-gray-600">${city.mealCost}</div>
+                <div class="text-xs text-apple-gray">${city.mealCost}</div>
             </td>
         `;
 
@@ -503,14 +503,14 @@ function renderMap() {
         .enter().append('path')
         .attr('class', 'country')
         .attr('d', path)
-        .attr('fill', '#e5e7eb')
+        .attr('fill', '#F2F2F7')
         .attr('stroke', '#ffffff')
         .attr('stroke-width', 0.5)
         .on('mouseover', function() {
-            d3.select(this).attr('fill', '#d1d5db');
+            d3.select(this).attr('fill', '#E5E5EA');
         })
         .on('mouseout', function() {
-            d3.select(this).attr('fill', '#e5e7eb');
+            d3.select(this).attr('fill', '#F2F2F7');
         });
 
     // Add cities
@@ -561,26 +561,25 @@ function showInfoPanel(city) {
     const panel = document.getElementById('info-panel');
     const { startLocal, endLocal, alignment, currentTime } = getWorkingHours(city.timezone, workingHours.start, workingHours.end);
 
-    panel.innerHTML = `
-        <div class="space-y-4">
+    panel.innerHTML = `        <div class="space-y-5">
             <div>
-                <div class="text-2xl font-bold text-gray-900">${city.city}</div>
-                <div class="text-lg text-gray-600 font-medium">${city.country}</div>
+                <div class="text-xl font-semibold text-gray-900">${city.city}</div>
+                <div class="text-base text-apple-gray font-medium">${city.country}</div>
             </div>
-
+            
             <div class="flex items-center gap-3 ${alignment.textColor}">
-                <div class="w-4 h-4 rounded-full shadow-lg" style="background-color: ${alignment.color}"></div>
-                <span class="font-bold text-lg">${alignment.quality} Alignment</span>
+                <div class="w-3 h-3 rounded-full shadow-apple" style="background-color: ${alignment.color}"></div>
+                <span class="font-medium text-base">${alignment.quality} Alignment</span>
             </div>
 
-            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 border border-gray-200">
-                <div class="text-sm font-semibold text-gray-600 mb-2">Working Hours (Local)</div>
-                <div class="text-xl font-mono font-bold text-gray-900">
+            <div class="bg-apple-gray-6 rounded-apple-lg p-4 border border-apple-gray-5">
+                <div class="text-sm font-medium text-apple-gray mb-2">Working Hours (Local)</div>
+                <div class="text-lg font-mono font-medium text-gray-900">
                     ${startLocal} - ${endLocal}
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 text-sm">
+            <div class="grid grid-cols-2 gap-3 text-sm">
                 <div>
                     <div class="text-gray-600 font-medium">Current Time</div>
                     <div class="font-mono font-bold text-gray-900">${currentTime}</div>
