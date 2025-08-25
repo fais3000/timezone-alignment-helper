@@ -15,7 +15,7 @@ async function loadCitiesData() {
 }
 
 // Global state
-let userLocation = { city: 'Detecting...', timezone: 'UTC', country: '' };
+// Removed userLocation (no longer displaying current location)
 let workingHours = { start: 12, end: 17 }; // 12pm to 5pm ET
 let currentFilter = 'all';
 let worldData = null;
@@ -351,51 +351,12 @@ async function loadWorldData() {
     renderMap();
 }
 
-// Initialize user location detection
-function detectLocation() {
-    try {
-        const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const matchedCity = cities.find(city => city.timezone === userTimezone);
-
-        if (matchedCity) {
-            userLocation = {
-                city: matchedCity.city,
-                timezone: matchedCity.timezone,
-                country: matchedCity.country
-            };
-        } else {
-            const cityName = userTimezone.split('/').pop()?.replace('_', ' ') || 'Unknown';
-            userLocation = {
-                city: cityName,
-                timezone: userTimezone,
-                country: 'Unknown'
-            };
-        }
-    } catch (error) {
-        console.error('Could not detect location:', error);
-        userLocation = {
-            city: 'Unknown',
-            timezone: 'UTC',
-            country: 'Unknown'
-        };
-    }
-
-    updateLocationDisplay();
-}
-
-// Update location display
-function updateLocationDisplay() {
-    const locationElement = document.getElementById('user-location');
-    locationElement.textContent = `${userLocation.country} (${userLocation.city})`;
-}
-
-// Update time displays
+// Update time display (Eastern only now)
 function updateTimes() {
-    const userTimeElement = document.getElementById('user-time');
     const easternTimeElement = document.getElementById('eastern-time');
-
-    userTimeElement.textContent = getCurrentTimeInTimeZone(userLocation.timezone);
-    easternTimeElement.textContent = getCurrentTimeInTimeZone('America/New_York');
+    if (easternTimeElement) {
+        easternTimeElement.textContent = getCurrentTimeInTimeZone('America/New_York');
+    }
 }
 
 // Update working hours display
@@ -667,7 +628,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     await loadCitiesData();
 
     // Initialize
-    detectLocation();
     populateHourSelects();
     updateWorkingHoursDisplay();
     loadWorldData();
