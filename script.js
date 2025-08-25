@@ -18,6 +18,7 @@ async function loadCitiesData() {
 // Removed userLocation (no longer displaying current location)
 let workingHours = { start: 12, end: 17 }; // 12pm to 5pm ET
 let currentFilter = 'all';
+let searchQuery = '';
 let worldData = null;
 
 // Utility functions
@@ -65,18 +66,18 @@ function getAlignmentQuality(startHour, endHour) {
 
         // Perfect: 80%+ overlap with good hours
         if (overlapPercentage >= 0.8) {
-            return { quality: 'Perfect', color: '#34C759', textColor: 'text-green-600' };
+            return { quality: 'Perfect', color: '#22C55E', textColor: 'text-green-600' };
         }
         // Good: 50%+ overlap with good hours
         if (overlapPercentage >= 0.5) {
-            return { quality: 'Good', color: '#FF9500', textColor: 'text-orange-600' };
+            return { quality: 'Good', color: '#F59E0B', textColor: 'text-amber-600' };
         }
         // Poor: less than 50% overlap with good hours (merged Fair into Poor)
-        return { quality: 'Poor', color: '#FF3B30', textColor: 'text-red-500' };
+        return { quality: 'Poor', color: '#EF4444', textColor: 'text-red-500' };
     }
 
     // Poor: no overlap with good hours (working entirely outside 4am-9pm)
-    return { quality: 'Poor', color: '#FF3B30', textColor: 'text-red-500' };
+    return { quality: 'Poor', color: '#EF4444', textColor: 'text-red-500' };
 }
 
 function getWorkingHours(timezone, startHour, endHour) {
@@ -133,10 +134,22 @@ function getWorkingHours(timezone, startHour, endHour) {
 
 function getFilteredCities() {
     return cities.filter(city => {
+        // Filter by alignment quality if needed
         if (currentFilter === 'good') {
             const { alignment } = getWorkingHours(city.timezone, workingHours.start, workingHours.end);
-            return (alignment.quality === 'Perfect' || alignment.quality === 'Good');
+            if (!(alignment.quality === 'Perfect' || alignment.quality === 'Good')) {
+                return false;
+            }
         }
+        
+        // Apply search filter if search query exists
+        if (searchQuery.trim() !== '') {
+            const query = searchQuery.toLowerCase().trim();
+            const cityMatch = city.city.toLowerCase().includes(query);
+            const countryMatch = city.country.toLowerCase().includes(query);
+            return cityMatch || countryMatch;
+        }
+        
         return true;
     });
 }
@@ -396,6 +409,24 @@ function populateCitiesTable() {
     if (!tableBody) return;
 
     tableBody.innerHTML = '';
+    
+    // Show "no results" message if no cities match search
+    if (filteredCities.length === 0) {
+        const noResultsRow = document.createElement('tr');
+        noResultsRow.className = 'border-b border-apple-gray-5';
+        noResultsRow.innerHTML = `
+            <td colspan="3" class="py-8 px-3 text-center">
+                <div class="flex flex-col items-center justify-center space-y-2">
+                    <i data-lucide="search-x" class="w-8 h-8 text-apple-gray-3 mb-2"></i>
+                    <div class="text-gray-500 font-medium">No matching cities found</div>
+                    <div class="text-sm text-apple-gray">Try a different search term</div>
+                </div>
+            </td>
+        `;
+        tableBody.appendChild(noResultsRow);
+        lucide.createIcons(); // Refresh Lucide icons
+        return;
+    }
 
     // Sort by meal cost (lowest first)
     const sortedCities = filteredCities.sort((a, b) => {
@@ -458,20 +489,21 @@ function renderMap() {
 
     const path = d3.geoPath().projection(projection);
 
-    // Draw countries
+    // Draw countries with improved color scheme
     svg.selectAll('.country')
         .data(worldData.features || [])
         .enter().append('path')
         .attr('class', 'country')
         .attr('d', path)
-        .attr('fill', '#F2F2F7')
-        .attr('stroke', '#ffffff')
-        .attr('stroke-width', 0.5)
+        .attr('fill', '#E8EDF1')  // Slightly blue-tinted light gray for better contrast
+        .attr('stroke', '#FFFFFF')
+        .attr('stroke-width', 0.8) // Slightly thicker borders
+        .attr('stroke-opacity', 0.8)
         .on('mouseover', function() {
-            d3.select(this).attr('fill', '#E5E5EA');
+            d3.select(this).attr('fill', '#D1DCE7'); // Darker blue-gray on hover
         })
         .on('mouseout', function() {
-            d3.select(this).attr('fill', '#F2F2F7');
+            d3.select(this).attr('fill', '#E8EDF1');
         });
 
     // Add cities
@@ -486,30 +518,50 @@ function renderMap() {
             return coords ? `translate(${coords[0]}, ${coords[1]})` : 'translate(-999, -999)';
         });
 
+    // Add glow filter for city markers
+    const defs = svg.append("defs");
+    const filter = defs.append("filter")
+        .attr("id", "glow")
+        .attr("x", "-50%")
+        .attr("y", "-50%")
+        .attr("width", "200%")
+        .attr("height", "200%");
+    
+    filter.append("feGaussianBlur")
+        .attr("stdDeviation", "2.5")
+        .attr("result", "coloredBlur");
+    
+    const feMerge = filter.append("feMerge");
+    feMerge.append("feMergeNode").attr("in", "coloredBlur");
+    feMerge.append("feMergeNode").attr("in", "SourceGraphic");
+
     cityGroup.append('circle')
         .attr('class', 'city-marker')
-        .attr('r', 6)
+        .attr('r', 5.5)
         .attr('fill', d => {
             const { alignment } = getWorkingHours(d.timezone, workingHours.start, workingHours.end);
             return alignment.color;
         })
-        .attr('fill-opacity', 0.8)
+        .attr('fill-opacity', 0.9)
         .attr('stroke', '#ffffff')
-        .attr('stroke-width', 2)
+        .attr('stroke-width', 1.5)
+        .attr('filter', 'url(#glow)')
         .on('mouseover', function(event, d) {
             d3.select(this)
                 .transition()
                 .duration(200)
-                .attr('r', 10)
-                .attr('fill-opacity', 1);
+                .attr('r', 9)
+                .attr('fill-opacity', 1)
+                .attr('stroke-width', 2);
             showInfoPanel(d);
         })
         .on('mouseout', function() {
             d3.select(this)
                 .transition()
                 .duration(200)
-                .attr('r', 6)
-                .attr('fill-opacity', 0.8);
+                .attr('r', 5.5)
+                .attr('fill-opacity', 0.9)
+                .attr('stroke-width', 1.5);
         });
 
     // City labels removed - showing only on hover
@@ -683,4 +735,74 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         renderMap();
     });
+    
+    // Search functionality
+    const searchInput = document.getElementById('city-search');
+    const clearButton = document.getElementById('clear-search');
+    const searchStatus = document.getElementById('search-status');
+    const searchCount = document.getElementById('search-count');
+    
+    if (searchInput) {
+        // Initial delay variable for debouncing
+        let searchTimeout = null;
+        
+        // Function to update search results
+        const updateSearch = () => {
+            searchQuery = searchInput.value;
+            
+            // Toggle clear button visibility
+            if (searchQuery.trim() !== '') {
+                clearButton.classList.remove('hidden');
+                searchStatus.classList.remove('hidden');
+            } else {
+                clearButton.classList.add('hidden');
+                searchStatus.classList.add('hidden');
+            }
+            
+            renderMap();
+            populateCitiesTable();
+            
+            // Update count of results
+            const resultCount = getFilteredCities().length;
+            if (searchCount) {
+                searchCount.textContent = resultCount;
+            }
+        };
+        
+        // Add input event listener with debouncing
+        searchInput.addEventListener('input', function(e) {
+            // Clear any existing timeout
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+            
+            // Set a new timeout to update search after user stops typing
+            searchTimeout = setTimeout(updateSearch, 300); // 300ms delay
+        });
+        
+        // Add clear button functionality
+        if (clearButton) {
+            clearButton.addEventListener('click', function() {
+                searchInput.value = '';
+                searchQuery = '';
+                clearButton.classList.add('hidden');
+                searchStatus.classList.add('hidden');
+                renderMap();
+                populateCitiesTable();
+                searchInput.focus();
+            });
+        }
+        
+        // Add clear functionality with 'Escape' key
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                searchQuery = '';
+                clearButton.classList.add('hidden');
+                searchStatus.classList.add('hidden');
+                renderMap();
+                populateCitiesTable();
+            }
+        });
+    }
 });
